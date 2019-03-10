@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+} 
+
+<div class="row">
+    <div class="text-center">
+        <h2>ePadLink SigCaptureWeb SDK Sample Page</h2>
+        <table border="1" cellpadding="0" width="500">
+            <tr>
+                <td height="100" width="500">
+                    <canvas id="cnv" name="cnv" width="500" height="100"></canvas>
+                </td>
+            </tr>
+        </table>
+
+        <canvas name="SigImg" id="SigImg" width="500" height="100"></canvas>
+        <form action="#" name=FORM1>
+            <p>
+                <input id="SignBtn" name="SignBtn" type="button" value="Sign" onclick="StartSign()" />&nbsp;&nbsp;&nbsp;&nbsp;
+                <input TYPE=HIDDEN NAME="bioSigData" />
+                <input TYPE=HIDDEN NAME="sigImgData"/>
+                <BR>
+                <BR>
+                <textarea NAME="sigRawData" ROWS="20" COLS="50">Signature Raw Data: </textarea>
+                <textarea NAME="sigImageData" ROWS="20" COLS="50">Signature Image Data: </textarea>
+            </p>
+        </form>
+        <br /><br />
+    </div> 
+</div>
