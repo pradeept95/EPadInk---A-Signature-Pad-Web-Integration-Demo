@@ -6,61 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
-    <script type="text/javascript">
-
-        var imgWidth;
-        var imgHeight;
-        function StartSign() { 
-            var canvasObj = document.getElementById('cnv');
-            canvasObj.getContext('2d').clearRect(0, 0, canvasObj.width, canvasObj.height);
-            document.FORM1.sigRawData.value = "Signature Raw Data: ";
-            document.FORM1.sigImageData.value = "Signature Image Data: ";
-            imgWidth = canvasObj.width;
-            imgHeight = canvasObj.height;
-            var message = { "firstName": "pradeep", "lastName": "thapaliya", "eMail": "", "location": "asdf", "imageFormat": 1, "imageX": imgWidth, "imageY": imgHeight, "imageTransparency": false, "imageScaling": false, "maxUpScalePercent": 0.0, "rawDataFormat": "ENC", "minSigPoints": 25, "penThickness": 3, "penColor": "#000000" };
-
-            document.addEventListener('SigCaptureWeb_SignResponse', SignResponse, false);
-            var messageData = JSON.stringify(message);
-            var element = document.createElement("SigCaptureWeb_ExtnDataElem");
-            element.setAttribute("SigCaptureWeb_MsgAttribute", messageData);
-            document.documentElement.appendChild(element);
-            var evt = document.createEvent("Events");
-            evt.initEvent("SigCaptureWeb_SignStartEvent", true, false);
-            element.dispatchEvent(evt);
-        }
-        function SignResponse(event) {
-            var str = event.target.getAttribute("SigCaptureWeb_msgAttri");
-            var obj = JSON.parse(str);
-            SetValues(obj, imgWidth, imgHeight);
-        }
-        function SetValues(objResponse, imageWidth, imageHeight) {
-            var obj = JSON.parse(JSON.stringify(objResponse));
-            var ctx = document.getElementById('cnv').getContext('2d');
-
-            if (obj.errorMsg != null && obj.errorMsg != "" && obj.errorMsg != "undefined") {
-                alert(obj.errorMsg);
-            }
-            else {
-                if (obj.isSigned) {
-                    document.FORM1.sigRawData.value += obj.rawData;
-                    document.FORM1.sigImageData.value += obj.imageData;
-                    var img = new Image();
-                    img.onload = function () {
-                        ctx.drawImage(img, 0, 0, imageWidth, imageHeight);
-                    }
-                    img.src = "data:image/png;base64," + obj.imageData;
-                }
-            }
-        }
-
-        function ClearFormData() {
-            document.FORM1.sigRawData.value = "Signature Raw Data: ";
-            document.FORM1.sigImageData.value = "Signature Image Data: ";
-
-        }
-    </script>
-
+     
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -71,14 +17,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("ePadLink SigCaptureWeb SDK Sample Page", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                @*<ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+                </ul>*@
             </div>
         </div>
     </div>
