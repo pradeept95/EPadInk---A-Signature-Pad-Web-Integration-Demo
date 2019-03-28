@@ -5,14 +5,17 @@
 <div class="row" style="margin-top:30px;">
     <div class="text-center">
         <div class="row" style="margin-bottom:30px">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <input id="SignBtn" name="SignBtn" class="btn btn-primary btn-lg btn-block" type="button" value="Sign" onclick="StartSign()" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <input id="SignBtn" name="SignBtn" class="btn btn-success btn-lg btn-block" type="button" value="Clear Data" onclick="ClearFormData()" />
             </div>
+            <div class="col-md-4">
+                <a id="download" download="signature.png"> <input id="SignBtn" name="SignBtn" class="btn btn-default btn-lg btn-block" type="button" value="Download" onclick="DownloadImage()" /></a>
+            </div>
         </div>
-       
+
         <div class="row">
             <form action="#" name=FORM1>
                 <table border="1" cellpadding="0" width="500" class="table" style="border:none">
@@ -27,7 +30,7 @@
                                 <textarea NAME="sigRawData" class="form-control" style="width:100%" ROWS="10">Signature Raw Data: </textarea>
 
                             </td>
-                            <td><textarea NAME="sigImageData" class="form-control" style="width:100%" ROWS="10">Signature Image Data: </textarea></td>
+                            <td><textarea NAME="sigImageData" class="form-control" style="width:100%" ROWS="10"></textarea></td>
                         </tr>
                     </tbody>
                 </table>
@@ -42,11 +45,11 @@
 
     var imgWidth;
     var imgHeight;
-    function StartSign() { 
+    function StartSign() {
         var canvasObj = document.getElementById('cnv');
         canvasObj.getContext('2d').clearRect(0, 0, canvasObj.width, canvasObj.height);
         document.FORM1.sigRawData.value = "Signature Raw Data: ";
-        document.FORM1.sigImageData.value = "Signature Image Data: ";
+        document.FORM1.sigImageData.value = "";
         imgWidth = canvasObj.width;
         imgHeight = canvasObj.height;
         var message = { "firstName": "pradeep", "lastName": "thapaliya", "eMail": "", "location": "asdf", "imageFormat": 1, "imageX": imgWidth, "imageY": imgHeight, "imageTransparency": false, "imageScaling": false, "maxUpScalePercent": 0.0, "rawDataFormat": "ENC", "minSigPoints": 25, "penThickness": 3, "penColor": "#000000" };
@@ -88,7 +91,15 @@
     function ClearFormData() {
         var ctx = document.getElementById('cnv').getContext('2d');
         document.FORM1.sigRawData.value = "Signature Raw Data: ";
-        document.FORM1.sigImageData.value = "Signature Image Data: ";
+        document.FORM1.sigImageData.value = "";
         ctx.clearRect(0, 0, 500, 300);
     }
+
+    function DownloadImage() {
+        var download = document.getElementById("download");
+        var image = document.getElementById("cnv").toDataURL("image/png")
+            .replace("image/png", "image/octet-stream");
+        download.setAttribute("href", image);
+    }
+
 </script>
